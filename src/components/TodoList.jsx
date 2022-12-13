@@ -14,14 +14,13 @@ const TodoList = () => {
         dispatch(deleteOneTodo(idTodo))
     }
     
+    // console.log(state.todos)
     return (
         <ul>
-            
-                { state.todos.map((todo) => {
-                  
+                { state.todos?.map((todo) => {
                     return(
                         <div key={todo.id}>
-                            <li onClick={() => {alert('click'); changeCompleted(todo.id)}}
+                            <li onClick={() => changeCompleted(todo.id) }
                                 key={todo.id}
                                 style={{
                                     textDecoration: todo.completed ? 'line-through': 'none',
@@ -32,16 +31,10 @@ const TodoList = () => {
                                 {`${todo.id}- ${todo.todoName}`}
                                 
                             </li>
-                            <button 
-                                
-                                    onClick={() => {
-                                    
-                                    // alert(todo.id)
-                                    deleteTodo(todo.id)}} >x</button>
+                            <button onClick={() => { deleteTodo(todo.id)} } >x</button>
                         </div>
                     )
                 })}
-            
         </ul>
     );
 }

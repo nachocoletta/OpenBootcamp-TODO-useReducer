@@ -1,7 +1,7 @@
 import React, { useRef, useContext } from 'react';
 import { myContext } from '../App';
-import { COMPLETE, CREATE_TODO } from '../actions/todoActionsTypes.js'
 import { createTodo } from '../actions/actions.js'
+
 const TodoForm = () => {
     
     const inputRef = useRef();
@@ -11,12 +11,15 @@ const TodoForm = () => {
         e.preventDefault();
 
         let newId;
-        if(state.todos.length > 0){
-            newId = state.todos[state.todos.length-1].id+1;
-        }
-        else {
-            newId = 1;
-        }
+        
+
+        // if(state.todos.length !== undefined)
+            if(state.todos.length > 0){
+                newId = state.todos[state.todos.length-1].id+1;
+            }
+            else {
+                newId = 1;
+            }
         // console.log(newId)
         const todo = {
             completed: false,
@@ -28,6 +31,7 @@ const TodoForm = () => {
         else {
             dispatch( createTodo(todo) )
         }
+        inputRef.current.value = ''
     }
 
     return (

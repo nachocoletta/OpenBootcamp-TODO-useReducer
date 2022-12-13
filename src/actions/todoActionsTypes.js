@@ -1,5 +1,7 @@
-export const ON_CHANGE = 'ON_CHANGE';
+
 export const CREATE_TODO = 'CREATE_TODO';
 export const COMPLETE = 'COMPLETE';
-export const GET_ALL_TODOS = 'GET_ALL_TODOS;'
+export const GET_ALL_TODOS = 'GET_ALL_TODOS';
+export const GET_COMPLETED_TODOS = 'GET_COMPLETED_TODOS';
+export const GET_IN_PROGRESS_TODOS = 'GET_IN_PROGRESS_TODOS';
 export const DELETE = 'DELETE';
