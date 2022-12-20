@@ -5,6 +5,7 @@ const TodoList = () => {
 
     const [state, dispatch] = useContext(myContext)
 
+    // console.log(state.todosLosTodos)
     const changeCompleted = (idTodo) => {
         // console.log(idTodo)
         dispatch(completeTodo(idTodo));
@@ -15,26 +16,33 @@ const TodoList = () => {
     }
     
     // console.log(state.todos)
+    // console.log(state.todos.length)
+    // console.log(state.todosLosTodos)
     return (
         <ul>
-                { state.todos?.map((todo) => {
-                    return(
-                        <div key={todo.id}>
-                            <li onClick={() => changeCompleted(todo.id) }
-                                key={todo.id}
-                                style={{
-                                    textDecoration: todo.completed ? 'line-through': 'none',
-                                    textDecorationColor: todo.completed ? 'green' : 'none',
-                                    color: todo.completed ? 'green' : 'white'  
-                                }}
-                            > 
-                                {`${todo.id}- ${todo.todoName}`}
-                                
-                            </li>
-                            <button onClick={() => { deleteTodo(todo.id)} } >x</button>
-                        </div>
-                    )
-                })}
+                { 
+                    (state.todosLosTodos.length && state.todosLosTodos.length > 0) ? 
+                        state.todos.map((todo) => {
+                            
+                            return (
+                                <div key={todo.id}>
+                                    <li onClick={() => changeCompleted(todo.id) }
+                                        key={todo.id}
+                                        style={{
+                                            textDecoration: todo.completed ? 'line-through': 'none',
+                                            textDecorationColor: todo.completed ? 'green' : 'none',
+                                            color: todo.completed ? 'green' : 'white'  
+                                        }}
+                                    > 
+                                        {`${todo.id}- ${todo.todoName}`}
+                                        
+                                    </li>
+                                    <button onClick={() => { deleteTodo(todo.id)} } >x</button>
+                                </div>
+                            )
+                        }) : 
+                        <h2>Crea tu todo</h2>
+                }
         </ul>
     );
 }

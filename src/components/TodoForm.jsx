@@ -1,12 +1,16 @@
-import React, { useRef, useContext } from 'react';
+import React, { useRef, useContext, useState } from 'react';
 import { myContext } from '../App';
 import { createTodo } from '../actions/actions.js'
+import TodoFormFooter from './TodoFormFooter'
+import TodoList from './TodoList';
 
 const TodoForm = () => {
     
     const inputRef = useRef();
-    const [state, dispatch] = useContext(myContext)
+    const [state, dispatch] = useContext(myContext);
+    const [stateButtonCreate, setStateButtonCreate] = useState(false);
 
+    // console.log(state.todosLosTodos)
     const submit = (e) => {
         e.preventDefault();
 
@@ -34,12 +38,29 @@ const TodoForm = () => {
         inputRef.current.value = ''
     }
 
+    const habilitarOInhabilitarBotonCrearTarea = (botonPulsado) => {
+        console.log(botonPulsado)
+        if(botonPulsado === 'todos')
+            setStateButtonCreate(false);
+        else if(botonPulsado === 'activos' || botonPulsado === 'completos')
+            setStateButtonCreate(true)
+    }
+
     return (
         <div>
             <form onSubmit={submit}>
                 <input type='text' ref={inputRef}/>
-                <button type='submit'>Crear</button>
+                <button disabled={stateButtonCreate} 
+                        type='submit' 
+                        // onClick={ () => {
+                        //     alert('hola')
+                        // }}
+                        style={{margin: '2px'}
+                        }>Crear</button>
             </form>
+            <TodoList></TodoList>
+            <TodoFormFooter functionUpdateStatusButtonCreate={(boton) => habilitarOInhabilitarBotonCrearTarea(boton)}
+                            action={stateButtonCreate}> </TodoFormFooter>
         </div>
     );
 }

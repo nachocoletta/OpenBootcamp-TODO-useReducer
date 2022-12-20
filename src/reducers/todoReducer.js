@@ -4,57 +4,67 @@ GET_COMPLETED_TODOS, GET_IN_PROGRESS_TODOS } from '../actions/todoActionsTypes'
 
 
 export const todoReducer = (state, action) => {
+
+
     switch(action.type){
         case GET_ALL_TODOS:
-            let arrayAllTodos = [];
 
-            // console.log(state.todos)
-            state.todos.forEach( (todo, index) => {
-                arrayAllTodos.push(todo)
-            })
-            // console.log(arrayAllTodos)
             return {
                 ...state,
-                todos: arrayAllTodos
+                // todos: state.todos
+                todos: state.todosLosTodos.map((todo, index) => { return {...todo}
+                } )
             }
+            
         case GET_COMPLETED_TODOS:
             // console.log(action.payload)
-            let arrayCompleted = [];
+            
 
-            state.todos.forEach( (todo) => {
-                if(todo.completed === true)
-                    arrayCompleted.push(todo);
-            })
+
             // console.log(arrayCompleted)
             // console.log(state.todos)
 
             return {
                 ...state,
-                todos: arrayCompleted
+                // todos: arrayCompleted
+                // todos: state.todos
+                // todos: state.todos.filter( (todo) => todo.completed)
+                todos: state.todosLosTodos.filter((todo) => todo.completed === true )
             }
 
         case GET_IN_PROGRESS_TODOS:
+            console.log(state)
             return {
                 ...state,
-                todos: state.todos.filter ( (todo) => todo.completed === false)
+                todos: state.todosLosTodos.filter( (todo) => !todo.completed)
             }
 
         case CREATE_TODO:
             return (
                 {
                     ...state,
-                    todos: [...state.todos, action.payload]
+                    todos: [...state.todos, action.payload],
+                    todosLosTodos: [...state.todos, action.payload]
                 }
             )
         case DELETE:
 
-            let arrayDeleted = state.todos.filter((todo) => {
+            let arrayFiltrado = state.todosLosTodos.filter((todo) => todo.id !== action.payload)
+        
+        
+            let arrayDeleted = arrayFiltrado.filter((todo) => {
                 // console.log(`todo ${todo.id} payload ${action.payload}`);
                 return todo.id !== action.payload
                 }
             );
+        
+            // let arrayDeleted = state.todos.filter((todo) => {
+            //     // console.log(`todo ${todo.id} payload ${action.payload}`);
+            //     return todo.id !== action.payload
+            //     }
+            // );
             
-          
+            
             let newArrayDeleted = [];
             
             arrayDeleted.forEach( (element, index) => {
@@ -63,8 +73,9 @@ export const todoReducer = (state, action) => {
             })
             return {
                 ...state,
-                // todos: state.todos.filter( (todo) => todo.id !== action.payload)
-                todos: newArrayDeleted
+                // todos: state.todos.filter( (todo) => todo.id !== action.payload),
+                todos: arrayFiltrado,
+                todosLosTodos: newArrayDeleted
             }
         case COMPLETE:
             let arrayComplete = [];
@@ -79,8 +90,20 @@ export const todoReducer = (state, action) => {
 
             return { 
                     ...state,
-                    todos: arrayComplete  
+                    todos: arrayComplete,
+                    todosLosTodos: arrayComplete
                 }
+            // return {
+            //     ...state,
+            //     todos: state.todos.forEach( (todo, index) => {
+            //         if(index+1 === action.payload){
+            //             arrayComplete.push({...todo, completed: !todo.completed})
+            //         } else {
+            //             arrayComplete.push(todo)
+            //         }
+            //         // return arrayComplete
+            //     })
+            // }
         // case COMPLETE:
         //     let arrayCopy = state.todos.map((item, index) => {
         //                                                         if(index+1 === action.payload){

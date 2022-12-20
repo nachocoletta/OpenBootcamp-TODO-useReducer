@@ -3,11 +3,12 @@ import './App.css';
 import React, { useReducer } from 'react'
 import { todoReducer } from './reducers/todoReducer'
 import TodoForm from './components/TodoForm';
-import TodoList from './components/TodoList';
-import TodoFormFooter from './components/TodoFormFooter';
+// import TodoList from './components/TodoList';
+// import TodoFormFooter from './components/TodoFormFooter';
 
 export const initialState = {
-  todos: []
+  todos: [],
+  todosLosTodos: []
   // todos: [{
   //     id: 1,
   //     todoName: 'tarea inicial',
@@ -19,6 +20,8 @@ export const initialState = {
   //     completed: false
   //     } ]
 }
+
+
 
 export const myContext = React.createContext(initialState);
 
@@ -35,8 +38,8 @@ function App() {
         <header className="App-header">
           <h1>App Create TODO..</h1>
           <TodoForm></TodoForm>
-          <TodoList></TodoList>
-          <TodoFormFooter></TodoFormFooter>
+          {/* <TodoList></TodoList> */}
+          {/* <TodoFormFooter></TodoFormFooter> */}
         </header>
       </div>
     </ProviderTodo>
