@@ -1,5 +1,5 @@
 import { COMPLETE, GET_ALL_TODOS, CREATE_TODO, DELETE,
-GET_COMPLETED_TODOS, GET_IN_PROGRESS_TODOS } from '../actions/todoActionsTypes'
+GET_COMPLETED_TODOS, GET_IN_PROGRESS_TODOS, FILTER_ALL_TODOS, FILTER_ACTIVE_TODOS, FILTER_COMPLETED_TODOS} from '../actions/todoActionsTypes'
 
 
 
@@ -114,6 +114,32 @@ export const todoReducer = (state, action) => {
         //         ...state,
         //          todos: arrayCopy
         //     }
+
+        case FILTER_ALL_TODOS:
+        
+        const nombreEnTodosLosTodos = action.payload;
+        let expresionRegularAFiltrarTodos = new RegExp(nombreEnTodosLosTodos)
+            return {
+                ...state,
+                // todos: state.todosLosTodos.filter( (todo) => todo.todoName === action.payload )
+                todos: state.todosLosTodos.filter( (x) => expresionRegularAFiltrarTodos.exec(x.todoName))
+            }
+        case FILTER_ACTIVE_TODOS:
+            const nombreEnTodosActivos = action.payload;
+            let expresionRegularAFiltrarActivos = new RegExp(nombreEnTodosActivos)
+            return {
+                ...state,
+                // todos: state.todosLosTodos.filter( (todo) => todo.todoName === action.payload )
+                todos: state.todosLosTodos.filter( (x) => expresionRegularAFiltrarActivos.exec(x.todoName))
+            }
+        case FILTER_COMPLETED_TODOS:
+            const nombreEnTodosCompletos = action.payload;
+            let expresionRegularAFiltrarCompletos = new RegExp(nombreEnTodosCompletos)
+            return {
+                ...state,
+                // todos: state.todosLosTodos.filter( (todo) => todo.todoName === action.payload )
+                todos: state.todosLosTodos.filter( (x) => expresionRegularAFiltrarCompletos.exec(x.todoName))
+            }
         default: 
             return state;
     }

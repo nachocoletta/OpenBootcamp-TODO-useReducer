@@ -1,6 +1,7 @@
 import React, {useRef, useContext, useState} from 'react';
 import { myContext } from '../App';
-import { getAllTodos, getCompletedTodos, getInProgressTodos } from '../actions/actions.js'
+import { getAllTodos, getCompletedTodos, getInProgressTodos, filterAllTodos, filterActiveTodos,
+    filterCompletedTodos } from '../actions/actions.js'
 
 const TodoFormFooter = ({functionUpdateStatusButtonCreate, action}) => {
 
@@ -9,6 +10,7 @@ const TodoFormFooter = ({functionUpdateStatusButtonCreate, action}) => {
     const [disableShowActive, setDisableShowActive] = useState(false);
     const [disableShowAll, setDisableShowAll] = useState(true);
     const [disableShowCompleted, setDisableShowCompleted] = useState(false);
+    const [inputFiltroTodo, setInputFiltroTodo] = useState('allTodos');
 
     // console.log(state)
     const showAllTodos = () => {
@@ -36,21 +38,54 @@ const TodoFormFooter = ({functionUpdateStatusButtonCreate, action}) => {
         // console.log(state.todos)
     }
 
-    const saberClick = (boton) => {
-        if(boton ===  'mostarTodos'){
-            console.log('mostar todos')
-        } else if(boton === 'mostrarCompletos'){
-            console.log('mostrar completos')
-        }   
-          else{
-            console.log('mostrar en progreso')
-          } 
+    // const saberClick = (boton) => {
+    //     if(boton ===  'mostarTodos'){
+    //         console.log('mostar todos')
+    //     } else if(boton === 'mostrarCompletos'){
+    //         console.log('mostrar completos')
+    //     }   
+    //       else{
+    //         console.log('mostrar en progreso')
+    //       } 
+    // }
+
+    const buscarTarea = (nombreTodo) => {
+        // alert('hola')
+        let tipoTodo = inputFiltroTodo;
+               
+// activeTodos - completedTodos
+        switch(tipoTodo){
+            case 'allTodos':
+                dispatch( filterAllTodos (nombreTodo))
+                // console.log('todos')
+                break;
+            case 'activeTodos':
+                dispatch( filterActiveTodos(nombreTodo))
+                // console.log('activos');
+                break;
+            case 'completedTodos':
+                dispatch( filterCompletedTodos (nombreTodo))
+                // console.log('completos');
+                break;
+            default:
+                console.log('no entra nunca')
+                break;
+        }
+        
     }
+
+    const clearFilterInput = () => {
+        inputRef.current.value = "";
+        inputRef.current.focus();
+    }
+
     return (
         <div>
             <button disabled={disableShowAll} onClick={(elemento) => {
-                saberClick('mostarTodos');
+                // saberClick('mostarTodos');
                 // functionUpdateStatusButtonCreate(action);
+                clearFilterInput();
+                setInputFiltroTodo('allTodos')
                 showAllTodos(); 
                 setDisableShowAll(!disableShowAll);
                 setDisableShowActive(false);
@@ -60,7 +95,9 @@ const TodoFormFooter = ({functionUpdateStatusButtonCreate, action}) => {
             </button>
             <button disabled={disableShowActive} onClick={() => {
                 // functionUpdateStatusButtonCreate(action);
-                saberClick('mostrarActivos');
+                // saberClick('mostrarActivos');
+                clearFilterInput();
+                setInputFiltroTodo('activeTodos')
                 showActiveTodos();
                 setDisableShowActive(!disableShowActive);
                 setDisableShowAll(false);
@@ -70,17 +107,19 @@ const TodoFormFooter = ({functionUpdateStatusButtonCreate, action}) => {
             </button>
             <button disabled={disableShowCompleted} onClick={() => {
                 // functionUpdateStatusButtonCreate(action);
-                saberClick('mostrarCompletos');
+                // saberClick('mostrarCompletos');
+                clearFilterInput();
+                setInputFiltroTodo('completedTodos')
                 showCompletedTodos();
                 setDisableShowActive(false);
                 setDisableShowAll(false);
                 setDisableShowCompleted(!disableShowCompleted);
                 }} 
                 style={{cursor: 'pointer', margin:'2px'}}> Completed </button>
-            <form onSubmit={submit}>    
-                <input type='text' placeholder='Nombre tarea...' ref={inputRef}/>
-                <button type='submit' style={{margin: '2px'}}>Buscar</button>
-            </form>
+            <br></br>
+            <input type='text'  onChange={() => buscarTarea(inputRef.current.value)} placeholder='Filtrar tarea...' ref={inputRef}/>
+                {/* <button type='submit' style={{margin: '2px'}}>Buscar</button> */}
+            
               
         </div>
     );

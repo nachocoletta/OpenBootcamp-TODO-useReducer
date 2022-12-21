@@ -1,5 +1,5 @@
 import { GET_ALL_TODOS, COMPLETE, CREATE_TODO, DELETE, GET_COMPLETED_TODOS,
-GET_IN_PROGRESS_TODOS} from './todoActionsTypes'
+GET_IN_PROGRESS_TODOS, FILTER_ALL_TODOS, FILTER_ACTIVE_TODOS, FILTER_COMPLETED_TODOS} from './todoActionsTypes'
 
 export const getAllTodos = () => {
     // console.log(todos)
@@ -46,5 +46,26 @@ export const deleteOneTodo = (id) => {
     return ({
             type: DELETE,
             payload: id
+    })
+}
+
+export const filterAllTodos = (todoName) => {
+    return ({
+        type: FILTER_ALL_TODOS,
+        payload: todoName
+    })
+}
+
+export const filterActiveTodos = (todoName) => {
+    return ({
+        type: FILTER_ACTIVE_TODOS,
+        payload: todoName
+    })
+}
+
+export const filterCompletedTodos = (todoName) => {
+    return ({
+        type: FILTER_COMPLETED_TODOS,
+        payload: todoName
     })
 }
