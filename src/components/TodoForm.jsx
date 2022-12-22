@@ -14,9 +14,13 @@ const TodoForm = () => {
     const submit = (e) => {
         e.preventDefault();
 
+        let text = inputRef.current.value;
+        if(text.trim() === '')
+        {
+            throw new Error('No puede estar vacio')
+        }
         let newId;
-        
-
+    
         // if(state.todos.length !== undefined)
             if(state.todos.length > 0){
                 newId = state.todos[state.todos.length-1].id+1;
@@ -39,7 +43,7 @@ const TodoForm = () => {
     }
 
     const habilitarOInhabilitarBotonCrearTarea = (botonPulsado) => {
-        console.log(botonPulsado)
+        // console.log(botonPulsado)
         if(botonPulsado === 'todos')
             setStateButtonCreate(false);
         else if(botonPulsado === 'activos' || botonPulsado === 'completos')
@@ -56,7 +60,7 @@ const TodoForm = () => {
                         //     alert('hola')
                         // }}
                         style={{margin: '2px'}
-                        }>Crear</button>
+                        }>Create</button>
             </form>
             <TodoList></TodoList>
             <TodoFormFooter functionUpdateStatusButtonCreate={(boton) => habilitarOInhabilitarBotonCrearTarea(boton)}

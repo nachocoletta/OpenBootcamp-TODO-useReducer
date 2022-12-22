@@ -36,10 +36,12 @@ function App() {
     <ProviderTodo value={[state, dispatch]}>
       <div className="App">
         <header className="App-header">
-          <h1>App Create TODO..</h1>
-          <TodoForm></TodoForm>
-          {/* <TodoList></TodoList> */}
-          {/* <TodoFormFooter></TodoFormFooter> */}
+          <div className="AppStyle">
+            <h1>YOUR TODOS</h1>
+            <TodoForm></TodoForm>
+            {/* <TodoList></TodoList> */}
+            {/* <TodoFormFooter></TodoFormFooter> */}
+          </div>
         </header>
       </div>
     </ProviderTodo>

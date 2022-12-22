@@ -56,7 +56,7 @@ const TodoFormFooter = ({functionUpdateStatusButtonCreate, action}) => {
 // activeTodos - completedTodos
         switch(tipoTodo){
             case 'allTodos':
-                dispatch( filterAllTodos (nombreTodo))
+                dispatch( filterAllTodos(nombreTodo))
                 // console.log('todos')
                 break;
             case 'activeTodos':
@@ -64,7 +64,7 @@ const TodoFormFooter = ({functionUpdateStatusButtonCreate, action}) => {
                 // console.log('activos');
                 break;
             case 'completedTodos':
-                dispatch( filterCompletedTodos (nombreTodo))
+                dispatch( filterCompletedTodos(nombreTodo))
                 // console.log('completos');
                 break;
             default:
@@ -117,7 +117,7 @@ const TodoFormFooter = ({functionUpdateStatusButtonCreate, action}) => {
                 }} 
                 style={{cursor: 'pointer', margin:'2px'}}> Completed </button>
             <br></br>
-            <input type='text'  onChange={() => buscarTarea(inputRef.current.value)} placeholder='Filtrar tarea...' ref={inputRef}/>
+            <input type='text'  onChange={() => buscarTarea(inputRef.current.value)} placeholder='Filter your task...' ref={inputRef}/>
                 {/* <button type='submit' style={{margin: '2px'}}>Buscar</button> */}
             
               

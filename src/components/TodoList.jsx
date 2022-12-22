@@ -19,7 +19,8 @@ const TodoList = () => {
     // console.log(state.todos.length)
     // console.log(state.todosLosTodos)
     return (
-        <ul>
+        <ul // style={{listStyle: "none"}}
+        >
                 { 
                     (state.todosLosTodos.length && state.todosLosTodos.length > 0) ? 
                         state.todos.map((todo) => {
@@ -34,14 +35,14 @@ const TodoList = () => {
                                             color: todo.completed ? 'green' : 'white'  
                                         }}
                                     > 
-                                        {`${todo.id}- ${todo.todoName}`}
+                                        {`${todo.id}- ${todo.todoName}  `}
                                         
                                     </li>
-                                    <button onClick={() => { deleteTodo(todo.id)} } >x</button>
+                                    <button style={{borderRadius: "30%"}} onClick={() => { deleteTodo(todo.id)} } >Borrar</button>
                                 </div>
                             )
                         }) : 
-                        <h2>Crea tu todo</h2>
+                        <h2>Create your todo</h2>
                 }
         </ul>
     );

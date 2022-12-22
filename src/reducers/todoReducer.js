@@ -33,7 +33,7 @@ export const todoReducer = (state, action) => {
             }
 
         case GET_IN_PROGRESS_TODOS:
-            console.log(state)
+            // console.log(state)
             return {
                 ...state,
                 todos: state.todosLosTodos.filter( (todo) => !todo.completed)
